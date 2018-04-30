@@ -47,4 +47,15 @@
     </tr>
     </tbody>
   </table>
+
+
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <input type="text" placeholder="Username" formControlName="username">
+    <input type="password" placeholder="Username" formControlName="password">
+
+    <button>Login</button>
+  </form>
+
+  <p>Form value: {{ loginForm.value | json }}</p>
+  <p>Form value: {{ loginForm.status }}</p>
 </div>
