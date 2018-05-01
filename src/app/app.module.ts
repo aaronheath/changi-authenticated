@@ -33,6 +33,7 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })
