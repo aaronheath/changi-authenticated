@@ -1,4 +1,4 @@
-import {Subscription} from 'rxjs/src/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
