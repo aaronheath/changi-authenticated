@@ -5,12 +5,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import {AuthService} from "./auth.service";
+import {AuthService} from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
 import {AuthGuard} from './auth.guard';
+import { AuthComponent } from './auth/auth.component';
+import { TestComponent } from './test/test.component';
+import {AuthRoutingModule} from './auth-routing/auth-routing.module';
+import {SessionStorageService} from './session-storage.service';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -23,16 +27,20 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    AuthComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes, {enableTracing: true}),
+    AuthRoutingModule
+    // RouterModule.forRoot(routes, {enableTracing: true}),
   ],
   providers: [
     AuthService,
+    SessionStorageService,
     AuthGuard,
   ],
   bootstrap: [AppComponent]

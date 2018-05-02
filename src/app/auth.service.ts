@@ -1,7 +1,8 @@
 import {addMinutes, addSeconds, isBefore, isPast} from 'date-fns';
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {SessionStorageService} from './session-storage.service';
 
 interface TokenResponse {
   access_token: string;
@@ -12,7 +13,7 @@ interface TokenResponse {
 
 @Injectable()
 export class AuthService {
-  authenticated = new BehaviorSubject(false);
+  authenticated = new BehaviorSubject(null);
   private clientId = '1';
   private clientSecret = 'GybhV8f3Xufus7AKU4h8ghWsEqusoInpiKc0Y3wL';
   private path = 'https://api.ahdc.test/oauth/token';
@@ -21,8 +22,8 @@ export class AuthService {
   private expiresIn: number;
   private expiresAt: Date;
 
-  constructor(private http: HttpClient) {
-    //
+  constructor(private http: HttpClient, private storage: SessionStorageService) {
+    this.hydrateTokens();
   }
 
   authenticate(username: string, password: string): void {
@@ -58,22 +59,21 @@ export class AuthService {
     this.http
       .post(this.path, body.toString(), options)
       .subscribe((data: TokenResponse) => {
-        this.accessToken = data.access_token;
-        this.refreshToken = data.refresh_token;
-        this.expiresIn = data.expires_in;
-        this.expiresAt = addSeconds(new Date(), this.expiresIn);
+        this.setTokenProps(data.access_token, data.refresh_token, data.expires_in);
+
+        this.storeTokens();
 
         this.setAuthenticated();
       });
   }
 
   private setAuthenticated() {
-    if(!this.accessToken || !this.refreshToken || !this.expiresAt) {
+    if (!this.accessToken || !this.refreshToken || !this.expiresAt) {
       return this.authenticated.next(false);
     }
 
     // If expires is in the past
-    if(isPast(this.expiresAt)) {
+    if (isPast(this.expiresAt)) {
       return this.authenticated.next(false);
     }
 
@@ -82,11 +82,55 @@ export class AuthService {
   }
 
   shouldRefresh(): boolean {
-    if(!this.authenticated.value) {
+    if (!this.authenticated.value) {
       return false;
     }
 
     // Refresh if within 30 min of expiry
     return isBefore(this.expiresAt, addMinutes(new Date, 30));
+  }
+
+  logout(): void {
+    // Clear local storage and class properties
+    this.accessToken = this.refreshToken = this.expiresIn = this.expiresAt = undefined;
+
+    this.clearTokens();
+
+    this.setAuthenticated();
+  }
+
+  storeTokens() {
+    this.storage.set('accessToken', this.accessToken || null);
+    this.storage.set('refreshToken', this.refreshToken || null);
+    this.storage.set('expiresIn', this.expiresIn || null);
+  }
+
+  clearTokens() {
+    this.storage.remove('accessToken');
+    this.storage.remove('refreshToken');
+    this.storage.remove('expiresIn');
+  }
+
+  hydrateTokens() {
+    const accessToken = this.storage.fetch('accessToken');
+    const refreshToken = this.storage.fetch('refreshToken');
+    const expiresIn = +this.storage.fetch('expiresIn');
+
+    if (accessToken && refreshToken && expiresIn) {
+      this.setTokenProps(accessToken, refreshToken, expiresIn);
+    }
+
+    this.setAuthenticated();
+
+    if (!this.authenticated.value) {
+      this.logout();
+    }
+  }
+
+  private setTokenProps(accessToken: string, refreshToken: string, expiresIn: number) {
+    this.accessToken = accessToken;
+    this.refreshToken = refreshToken;
+    this.expiresIn = expiresIn;
+    this.expiresAt = addSeconds(new Date(), this.expiresIn);
   }
 }
