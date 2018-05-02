@@ -1,7 +1,8 @@
+import {Subscription} from 'rxjs/src/Subscription';
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {AuthService} from '../auth.service';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +10,13 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  authenticatedSub: Subscription;
+  isAuthenticated: boolean | null;
   loginForm: FormGroup;
-  isAuthenticated;
-  authenticatedSub;
 
-  constructor(private auth: AuthService, private fb: FormBuilder, private router: Router) {}
+  constructor(private auth: AuthService, private fb: FormBuilder, private router: Router) {
+    //
+  }
 
   ngOnInit() {
     this.authenticatedSub = this.auth.authenticated.subscribe(authenticated => {
@@ -39,8 +42,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    console.log('submitting', this.loginForm.value);
-
     this.auth.authenticate(this.loginForm.value.username, this.loginForm.value.password);
   }
 }
