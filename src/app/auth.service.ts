@@ -1,8 +1,9 @@
 import {addMinutes, addSeconds, isBefore, isPast} from 'date-fns';
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {SessionStorageService} from './session-storage.service';
+import {environment as env} from '../environments/environment'; // TODO simplify this path as it's commonly used
 
 interface TokenResponse {
   access_token: string;
@@ -13,10 +14,17 @@ interface TokenResponse {
 
 @Injectable()
 export class AuthService {
+  static storageName = {
+    accessToken: 'accessToken',
+    refreshToken: 'accessToken',
+    expiresIn: 'expiresIn',
+  };
+
   authenticated = new BehaviorSubject(null);
-  private clientId = '1';
-  private clientSecret = 'GybhV8f3Xufus7AKU4h8ghWsEqusoInpiKc0Y3wL';
-  private path = 'https://api.ahdc.test/oauth/token';
+
+  private clientId = env.oauth.clientId;
+  private clientSecret = env.oauth.clientSecret;
+  private path = env.oauth.path;
   private accessToken: string;
   private refreshToken: string;
   private expiresIn: number;
@@ -99,22 +107,22 @@ export class AuthService {
     this.setAuthenticated();
   }
 
-  storeTokens() {
-    this.storage.set('accessToken', this.accessToken || null);
-    this.storage.set('refreshToken', this.refreshToken || null);
-    this.storage.set('expiresIn', this.expiresIn || null);
+  private storeTokens() {
+    this.storage.set(AuthService.storageName.accessToken, this.accessToken || null);
+    this.storage.set(AuthService.storageName.refreshToken, this.refreshToken || null);
+    this.storage.set(AuthService.storageName.expiresIn, this.expiresIn || null);
   }
 
-  clearTokens() {
-    this.storage.remove('accessToken');
-    this.storage.remove('refreshToken');
-    this.storage.remove('expiresIn');
+  private clearTokens() {
+    this.storage.remove(AuthService.storageName.accessToken);
+    this.storage.remove(AuthService.storageName.refreshToken);
+    this.storage.remove(AuthService.storageName.expiresIn);
   }
 
-  hydrateTokens() {
-    const accessToken = this.storage.fetch('accessToken');
-    const refreshToken = this.storage.fetch('refreshToken');
-    const expiresIn = +this.storage.fetch('expiresIn');
+  private hydrateTokens() {
+    const accessToken = this.storage.fetch(AuthService.storageName.accessToken);
+    const refreshToken = this.storage.fetch(AuthService.storageName.refreshToken);
+    const expiresIn = +this.storage.fetch(AuthService.storageName.expiresIn);
 
     if (accessToken && refreshToken && expiresIn) {
       this.setTokenProps(accessToken, refreshToken, expiresIn);
