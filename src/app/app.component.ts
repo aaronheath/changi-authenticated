@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-root',

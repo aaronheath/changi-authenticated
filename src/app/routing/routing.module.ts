@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {HomeComponent} from '../home/home.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {TestComponent} from '../test/test.component';
+import {HomeComponent} from '../home/home.component';
 import {LoginComponent} from '../login/login.component';
 import {LogoutComponent} from '../logout/logout.component';
 import {AuthGuard} from '../auth.guard';
@@ -15,7 +14,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: '', component: HomeComponent},
-      {path: 'test', component: TestComponent},
     ],
   }
 ];
@@ -29,4 +27,6 @@ const routes: Routes = [
     RouterModule,
   ]
 })
-export class RoutingModule { }
+export class RoutingModule {
+  //
+}
