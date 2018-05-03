@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpService} from './http.service';
 
 @Injectable()
 export class MeService {
-
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpService) {
+    //
+  }
 }

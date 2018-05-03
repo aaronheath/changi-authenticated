@@ -11,6 +11,7 @@ import {LogoutComponent} from './logout/logout.component';
 
 // Services
 import {AuthService} from './auth.service';
+import {HttpService} from './http.service';
 import {SessionStorageService} from './session-storage.service';
 
 // Guards
@@ -34,6 +35,7 @@ import {RoutingModule} from './routing/routing.module';
   ],
   providers: [
     AuthService,
+    HttpService,
     SessionStorageService,
     AuthGuard,
   ],

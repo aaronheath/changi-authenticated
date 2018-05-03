@@ -47,6 +47,13 @@ export class AuthService {
     this.call(params);
   }
 
+  async accessToken() {
+    if(this.shouldRefresh()) {
+      // TODO think we're going to need to distribute accessToken via Subject
+      this.refresh();
+    }
+  }
+
   refresh() {
     const params = {
       grant_type: 'refresh_token',
