@@ -1,11 +1,10 @@
 import {addMinutes, addSeconds, isBefore, isPast} from 'date-fns';
-import {Subscription} from 'rxjs/Subscription';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment as ENV} from 'env';
 import {SessionStorageService} from './session-storage.service';
-import {environment as env} from '../environments/environment'; // TODO simplify this path as it's commonly used
 
 interface TokenResponse {
   access_token: string;
@@ -18,16 +17,16 @@ interface TokenResponse {
 export class AuthService {
   static storageName = {
     accessToken: 'accessToken',
-    refreshToken: 'accessToken',
+    refreshToken: 'refreshToken',
     expiresIn: 'expiresIn',
   };
 
   authenticated = new BehaviorSubject(null);
-  accessTokenSubject = new Subject();
+  accessTokenSubject = new Subject<string>();
 
-  private clientId = env.oauth.clientId;
-  private clientSecret = env.oauth.clientSecret;
-  private path = env.oauth.path;
+  private clientId = ENV.OAUTH.CLIENTID;
+  private clientSecret = ENV.OAUTH.CLIENTSECRET;
+  private url = `${ENV.OAUTH.BASE}${ENV.OAUTH.PATH}`;
   private accessToken: string;
   private refreshToken: string;
   private expiresIn: number;
@@ -50,23 +49,15 @@ export class AuthService {
     this.call(params);
   }
 
-  async accessToken() {
-    if(this.shouldRefresh()) {
-      // TODO think we're going to need to distribute accessToken via Subject
-      // const accessTokenSubscription = this.accessTokenSubject.subscribe(() => {
-      //
-      // });
-
-      this.refresh();
-
-      // this.refresh().subscribe(() => );
-
+  pushAccessToken(): void {
+    if (this.shouldRefresh()) {
+      return this.refresh();
     }
 
     this.accessTokenSubject.next(this.accessToken);
   }
 
-  refresh(): Subscription {
+  refresh(): void {
     const params = {
       grant_type: 'refresh_token',
       client_id: this.clientId,
@@ -75,16 +66,16 @@ export class AuthService {
       scope: '',
     };
 
-    return this.call(params);
+    this.call(params);
   }
 
-  private call(params): Subscription {
+  private call(params: {}): void {
     const body = new HttpParams({fromObject: params});
 
     const options = {headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')};
 
-    return this.http
-      .post(this.path, body.toString(), options)
+    this.http
+      .post(this.url, body.toString(), options)
       .subscribe((data: TokenResponse) => {
         this.setTokenProps(data.access_token, data.refresh_token, data.expires_in);
 
@@ -94,7 +85,7 @@ export class AuthService {
       });
   }
 
-  private setAuthenticated() {
+  private setAuthenticated(): void {
     if (!this.accessToken || !this.refreshToken || !this.expiresAt) {
       return this.authenticated.next(false);
     }
@@ -126,19 +117,19 @@ export class AuthService {
     this.setAuthenticated();
   }
 
-  private storeTokens() {
+  private storeTokens(): void {
     this.storage.set(AuthService.storageName.accessToken, this.accessToken || null);
     this.storage.set(AuthService.storageName.refreshToken, this.refreshToken || null);
     this.storage.set(AuthService.storageName.expiresIn, this.expiresIn || null);
   }
 
-  private clearTokens() {
+  private clearTokens(): void {
     this.storage.remove(AuthService.storageName.accessToken);
     this.storage.remove(AuthService.storageName.refreshToken);
     this.storage.remove(AuthService.storageName.expiresIn);
   }
 
-  private hydrateTokens() {
+  private hydrateTokens(): void {
     const accessToken = this.storage.fetch(AuthService.storageName.accessToken);
     const refreshToken = this.storage.fetch(AuthService.storageName.refreshToken);
     const expiresIn = +this.storage.fetch(AuthService.storageName.expiresIn);
@@ -154,7 +145,7 @@ export class AuthService {
     }
   }
 
-  private setTokenProps(accessToken: string, refreshToken: string, expiresIn: number) {
+  private setTokenProps(accessToken: string, refreshToken: string, expiresIn: number): void {
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
     this.expiresIn = expiresIn;

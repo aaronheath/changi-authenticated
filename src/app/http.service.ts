@@ -1,7 +1,16 @@
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthService} from './auth.service';
+
+interface HeadersObj {
+  Authorization: string;
+  [header: string]: string | string[];
+}
+
+interface OptionsWithAuthorization {
+  headers: HttpHeaders | HeadersObj;
+}
 
 @Injectable()
 export class HttpService {
@@ -9,20 +18,62 @@ export class HttpService {
     //
   }
 
-  get(url: string, options): Subject {
+  get(url: string, useOAuth = true, options?): Subject<any> {
     const subject = new Subject();
 
-    this.auth.accessTokenSubject.subscribe((accessToken) => {
-      if(options.headers) {
-        // Has headers defined
-      }
+    const method = useOAuth ? 'callWithAccessToken' : 'callWithoutAccessToken';
 
-      // TODO just for dev
-      options = {headers: {Authorization: `Bearer ${accessToken}`}};
-
-      this.http.get(url, options).subscribe(response => subject.next(response), error);
-    });
+    this[method]('httpGet', subject, url, options);
 
     return subject;
+  }
+
+  private httpGet(subject: Subject<any>, url: string, options?: {}): void {
+    this.http.get(url, options)
+      .subscribe(
+        response => subject.next(response),
+        error => console.error(error)
+      );
+  }
+
+  private callWithAccessToken(method, subject, url, options) {
+    this.auth.accessTokenSubject.subscribe(accessToken => {
+      options = this.injectAuthorization(accessToken, options);
+
+      this[method](subject, url, options);
+    });
+
+    this.auth.pushAccessToken();
+  }
+
+  private callWithoutAccessToken(method, subject, url, options) {
+    this[method](subject, url, options);
+  }
+
+  private injectAuthorization(
+    accessToken: string,
+    options?: OptionsWithAuthorization
+  ): OptionsWithAuthorization {
+    const Authorization = `Bearer ${accessToken}`;
+
+    if(!options) {
+      return {headers: {Authorization}};
+    }
+
+    if(!options.headers) {
+      options.headers = {Authorization};
+
+      return options;
+    }
+
+    if(options.headers instanceof HttpHeaders) {
+      options.headers.set('Authorization', Authorization);
+
+      return options;
+    }
+
+    options.headers.Authorization = Authorization;
+
+    return options;
   }
 }

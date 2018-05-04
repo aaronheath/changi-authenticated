@@ -1,7 +1,7 @@
-import {BrowserModule } from '@angular/platform-browser';
-import {NgModule } from '@angular/core';
-import {HttpClientModule } from '@angular/common/http';
-import {ReactiveFormsModule } from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
 
 // Components
 import {AppComponent} from './app.component';
@@ -12,6 +12,7 @@ import {LogoutComponent} from './logout/logout.component';
 // Services
 import {AuthService} from './auth.service';
 import {HttpService} from './http.service';
+import {MeService} from './me.service';
 import {SessionStorageService} from './session-storage.service';
 
 // Guards
@@ -36,6 +37,7 @@ import {RoutingModule} from './routing/routing.module';
   providers: [
     AuthService,
     HttpService,
+    MeService,
     SessionStorageService,
     AuthGuard,
   ],

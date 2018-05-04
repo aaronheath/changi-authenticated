@@ -1,8 +1,9 @@
 export const environment = {
-  production: true,
-  oauth: {
-    clientId: '',
-    clientSecret: '',
-    path: '',
+  production: false, // must stay lowercase
+  OAUTH: {
+    CLIENTID: '',
+    CLIENTSECRET: '',
+    BASE: 'https://example.test',
+    PATH: '/oauth/token',
   },
 };

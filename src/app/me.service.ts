@@ -1,15 +1,29 @@
+import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
+import {environment as ENV} from 'env';
 import {HttpService} from './http.service';
+
+export interface Me {
+  id: number;
+  email: string;
+  firstname: string;
+  lastname: string;
+  slug: string;
+  created_at: string;
+  updated_at: string;
+}
 
 @Injectable()
 export class MeService {
+  base: string = ENV.OAUTH.BASE;
+  subject = new Subject<Me>();
+
   constructor(private http: HttpService) {
     //
   }
 
-  fetch() {
-    this.http.get('/api/me').subscribe(response => {
-      console.log('me fetch response', response);
-    });
+  fetch(): void {
+    this.http.get(`${this.base}/api/me`)
+      .subscribe(response => this.subject.next(response));
   }
 }
