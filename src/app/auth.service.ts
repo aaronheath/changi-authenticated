@@ -1,5 +1,7 @@
 import {addMinutes, addSeconds, isBefore, isPast} from 'date-fns';
+import {Subscription} from 'rxjs/Subscription';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {SessionStorageService} from './session-storage.service';
@@ -21,6 +23,7 @@ export class AuthService {
   };
 
   authenticated = new BehaviorSubject(null);
+  accessTokenSubject = new Subject();
 
   private clientId = env.oauth.clientId;
   private clientSecret = env.oauth.clientSecret;
@@ -50,11 +53,20 @@ export class AuthService {
   async accessToken() {
     if(this.shouldRefresh()) {
       // TODO think we're going to need to distribute accessToken via Subject
+      // const accessTokenSubscription = this.accessTokenSubject.subscribe(() => {
+      //
+      // });
+
       this.refresh();
+
+      // this.refresh().subscribe(() => );
+
     }
+
+    this.accessTokenSubject.next(this.accessToken);
   }
 
-  refresh() {
+  refresh(): Subscription {
     const params = {
       grant_type: 'refresh_token',
       client_id: this.clientId,
@@ -63,15 +75,15 @@ export class AuthService {
       scope: '',
     };
 
-    this.call(params);
+    return this.call(params);
   }
 
-  private call(params) {
+  private call(params): Subscription {
     const body = new HttpParams({fromObject: params});
 
     const options = {headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')};
 
-    this.http
+    return this.http
       .post(this.path, body.toString(), options)
       .subscribe((data: TokenResponse) => {
         this.setTokenProps(data.access_token, data.refresh_token, data.expires_in);
@@ -147,5 +159,7 @@ export class AuthService {
     this.refreshToken = refreshToken;
     this.expiresIn = expiresIn;
     this.expiresAt = addSeconds(new Date(), this.expiresIn);
+
+    this.accessTokenSubject.next(this.accessToken);
   }
 }
