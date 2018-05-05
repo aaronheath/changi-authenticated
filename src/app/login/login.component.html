@@ -2,10 +2,11 @@
   <input type="text" placeholder="Username" formControlName="username">
   <input type="password" placeholder="Username" formControlName="password">
 
-  <button>Login</button>
+  <button [disabled]="formInvalid">Login</button>
 </form>
 
 <p>Form value: {{ loginForm.value | json }}</p>
 <p>Form value: {{ loginForm.status }}</p>
 <p>Is logged in: {{ isAuthenticated }}</p>
+<p>Login msg: {{ loginAttemptMessage?.msg }}</p>
 <a routerLink="/">Home</a>

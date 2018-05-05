@@ -13,6 +13,22 @@ interface TokenResponse {
   token_type: string;
 }
 
+interface OAuthParams {
+  grant_type: 'password' | 'refresh_token';
+  client_id: string;
+  client_secret: string;
+  scope: string;
+  username?: string;
+  password?: string;
+  refresh_token?: string;
+  [param: string]: string | string[];
+}
+
+export interface LatestAttemptMessage {
+  status: 'in-progress' | 'success' | 'failed';
+  msg: string;
+}
+
 @Injectable()
 export class AuthService {
   static storageName = {
@@ -23,9 +39,10 @@ export class AuthService {
 
   authenticated = new BehaviorSubject(null);
   accessTokenSubject = new Subject<string>();
+  loginAttemptMessage = new Subject<LatestAttemptMessage>();
 
-  private clientId = ENV.OAUTH.CLIENTID;
-  private clientSecret = ENV.OAUTH.CLIENTSECRET;
+  private clientId: string = ENV.OAUTH.CLIENTID;
+  private clientSecret: string = ENV.OAUTH.CLIENTSECRET;
   private url = `${ENV.OAUTH.BASE}${ENV.OAUTH.PATH}`;
   private accessToken: string;
   private refreshToken: string;
@@ -37,7 +54,9 @@ export class AuthService {
   }
 
   authenticate(username: string, password: string): void {
-    const params = {
+    this.loginAttemptMessage.next({status: 'in-progress', msg: 'Attempting login...'});
+
+    const params: OAuthParams = {
       grant_type: 'password',
       client_id: this.clientId,
       client_secret: this.clientSecret,
@@ -58,7 +77,7 @@ export class AuthService {
   }
 
   refresh(): void {
-    const params = {
+    const params: OAuthParams = {
       grant_type: 'refresh_token',
       client_id: this.clientId,
       client_secret: this.clientSecret,
@@ -69,7 +88,7 @@ export class AuthService {
     this.call(params);
   }
 
-  private call(params: {}): void {
+  private call(params: OAuthParams): void {
     const body = new HttpParams({fromObject: params});
 
     const options = {headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')};
@@ -82,6 +101,14 @@ export class AuthService {
         this.storeTokens();
 
         this.setAuthenticated();
+
+        if (params.grant_type === 'password') {
+          this.loginAttemptMessage.next({status: 'success', msg: 'Successfully logged in'});
+        }
+      }, response => {
+        if (params.grant_type === 'password') {
+          this.loginAttemptMessage.next({status: 'failed', msg: 'Login failed due to incorrect username / password'});
+        }
       });
   }
 

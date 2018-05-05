@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -40,6 +40,7 @@ import {RoutingModule} from './routing/routing.module';
     MeService,
     SessionStorageService,
     AuthGuard,
+    Title,
   ],
   bootstrap: [
     AppComponent,
