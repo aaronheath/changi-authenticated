@@ -29,7 +29,7 @@ export class HttpService {
   }
 
   get(url: string, useOAuth = true, options?): Subject<any> {
-    const subject = new Subject();
+    const subject = new Subject<ResponseData | string>();
 
     const method = useOAuth ? 'callWithAccessToken' : 'callWithoutAccessToken';
 
@@ -41,11 +41,15 @@ export class HttpService {
   private httpGet(subject: Subject<any>, url: string, options?: {}): void {
     this.http.get(url, options)
       .subscribe(
-        (response: ResponseSchema) => {
-          response.status === 'success' ? subject.next(response.data) : subject.error(response.msg);
-        },
+        this.handleHttpSuccessResponse(subject),
         error => console.error(error)
       );
+  }
+
+  private handleHttpSuccessResponse(subject: Subject<ResponseData | string>) {
+    return (response: ResponseSchema) => {
+      response.status === 'success' ? subject.next(response.data) : subject.error(response.msg);
+    };
   }
 
   private callWithAccessToken(method, subject, url, options) {
