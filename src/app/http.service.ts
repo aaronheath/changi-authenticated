@@ -12,6 +12,16 @@ interface OptionsWithAuthorization {
   headers: HttpHeaders | HeadersObj;
 }
 
+interface ResponseData {
+  [key: string]: any;
+}
+
+interface ResponseSchema {
+  status: 'success' | 'error';
+  data?: ResponseData | string;
+  msg?: ResponseData | string;
+}
+
 @Injectable()
 export class HttpService {
   constructor(private http: HttpClient, private auth: AuthService) {
@@ -31,7 +41,9 @@ export class HttpService {
   private httpGet(subject: Subject<any>, url: string, options?: {}): void {
     this.http.get(url, options)
       .subscribe(
-        response => subject.next(response),
+        (response: ResponseSchema) => {
+          response.status === 'success' ? subject.next(response.data) : subject.error(response.msg);
+        },
         error => console.error(error)
       );
   }
