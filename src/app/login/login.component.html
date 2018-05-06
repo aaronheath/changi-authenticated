@@ -1,8 +1,20 @@
 <form [formGroup]="loginForm" (ngSubmit)="submit()">
-  <input type="text" placeholder="Username" formControlName="username">
-  <input type="password" placeholder="Username" formControlName="password">
+  <input
+    type="text"
+    placeholder="Username"
+    formControlName="username"
+    class="m-1 block border-grey-light hover:border-grey border-solid border p-2">
+  <input
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+    class="m-1 block border-grey-light hover:border-grey border-solid border p-2">
 
-  <button [disabled]="formInvalid">Login</button>
+  <button
+    [disabled]="formInvalid"
+    class="m-1 block bg-grey-light border-grey hover:border-grey-darker border-solid border p-2">
+    Login
+  </button>
 </form>
 
 <p>Form value: {{ loginForm.value | json }}</p>
