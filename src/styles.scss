@@ -55,3 +55,11 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
+
+.input {
+  @apply .m-1 .block .border-grey-light .border-solid .border .p-2 .w-64 .mx-auto .text-center;
+}
+
+.input:hover {
+  @apply .border-grey;
+}
