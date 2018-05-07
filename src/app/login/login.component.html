@@ -1,24 +1,30 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
-  <input
-    type="text"
-    placeholder="Username"
-    formControlName="username"
-    class="m-1 block border-grey-light hover:border-grey border-solid border p-2">
-  <input
-    type="password"
-    placeholder="Password"
-    formControlName="password"
-    class="m-1 block border-grey-light hover:border-grey border-solid border p-2">
+<div class="container mx-auto px-4">
+  <div class="flex justify-center content-center h-screen">
+    <div>
+      <form [formGroup]="loginForm" (ngSubmit)="submit()" class="">
+        <input
+          type="text"
+          placeholder="Username"
+          formControlName="username"
+          class="m-1 block border-grey-light hover:border-grey border-solid border p-2 w-64">
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          class="m-1 block border-grey-light hover:border-grey border-solid border p-2 w-64">
 
-  <button
-    [disabled]="formInvalid"
-    class="m-1 block bg-grey-light border-grey hover:border-grey-darker border-solid border p-2">
-    Login
-  </button>
-</form>
+        <button
+          [disabled]="formInvalid"
+          class="m-1 block bg-grey-light border-grey hover:border-grey-darker border-solid border p-2 w-64">
+          Login
+        </button>
+      </form>
 
-<p>Form value: {{ loginForm.value | json }}</p>
-<p>Form value: {{ loginForm.status }}</p>
-<p>Is logged in: {{ isAuthenticated }}</p>
-<p>Login msg: {{ loginAttemptMessage?.msg }}</p>
-<a routerLink="/">Home</a>
+      <p>Form value: {{ loginForm.value | json }}</p>
+      <p>Form value: {{ loginForm.status }}</p>
+      <p>Is logged in: {{ isAuthenticated }}</p>
+      <p>Login msg: {{ loginAttemptMessage?.msg }}</p>
+      <a routerLink="/">Home</a>
+    </div>
+  </div>
+</div>
