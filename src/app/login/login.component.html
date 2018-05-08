@@ -1,6 +1,8 @@
 <div class="container mx-auto px-4">
   <div class="flex justify-center items-center h-screen">
     <div class="w-full">
+      <i class="fas fa-camera-retro"></i>
+
       <!-- In-Progress and Failure messages -->
       <div *ngIf="['in-progress', 'failed'].includes(loginAttemptMessage?.status)" class="text-center m-4">
         <span
@@ -22,16 +24,17 @@
           type="text"
           placeholder="Username"
           formControlName="username"
-          class="input">
+          class="input w-64 mx-auto my-1">
         <input
           type="password"
           placeholder="Password"
           formControlName="password"
-          class="input">
+          class="input w-64 mx-auto my-1">
 
         <button
           [disabled]="formInvalid"
-          class="m-1 block bg-grey-light border-grey hover:border-grey-darker border-solid border p-2 w-64 mx-auto text-center">
+          [class.btn-valid]="!formInvalid"
+          class="btn w-64 mx-auto my-1">
           Login
         </button>
       </form>
