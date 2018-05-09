@@ -1,19 +1,24 @@
 <div class="container mx-auto px-4">
   <div class="flex justify-center items-center h-screen">
     <div class="w-full">
-      <i class="fas fa-camera-retro"></i>
-
       <!-- In-Progress and Failure messages -->
-      <div *ngIf="['in-progress', 'failed'].includes(loginAttemptMessage?.status)" class="text-center m-4">
+      <div
+        *ngIf="['in-progress', 'failed'].includes(loginAttemptMessage?.status)"
+        class="text-center m-4">
         <span
           *ngIf="loginAttemptMessage?.status === 'in-progress'"
           class="text-blue">
+          <fa-icon
+            [icon]="['fal', 'spinner-third']"
+            spin="true"></fa-icon>
           {{ loginAttemptMessage.msg }}
         </span>
 
         <span
           *ngIf="loginAttemptMessage?.status === 'failed'"
-          class="text-red">
+          class="text-red font-semibold">
+          <fa-icon
+            [icon]="['fal', 'exclamation-circle']"></fa-icon>
           {{ loginAttemptMessage.msg }}
         </span>
       </div>
@@ -38,14 +43,6 @@
           Login
         </button>
       </form>
-
-      <!--<div class="text-center">-->
-        <!--<p>Form value: {{ loginForm.value | json }}</p>-->
-        <!--<p>Form value: {{ loginForm.status }}</p>-->
-        <!--<p>Is logged in: {{ isAuthenticated }}</p>-->
-        <!--<p>Login msg: {{ loginAttemptMessage?.msg }}</p>-->
-        <!--<a routerLink="/">Home</a>-->
-      <!--</div>-->
     </div>
   </div>
 </div>

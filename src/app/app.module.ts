@@ -21,6 +21,22 @@ import {AuthGuard} from './auth.guard';
 // Routes
 import {RoutingModule} from './routing/routing.module';
 
+// Font Awesome
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+
+import {
+  faExclamationCircle,
+  faSpinnerThird,
+  faTimesCircle,
+} from '@fortawesome/fontawesome-pro-light';
+
+library.add(
+  faExclamationCircle,
+  faSpinnerThird,
+  faTimesCircle,
+);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +49,7 @@ import {RoutingModule} from './routing/routing.module';
     HttpClientModule,
     ReactiveFormsModule,
     RoutingModule,
+    FontAwesomeModule,
   ],
   providers: [
     AuthService,
