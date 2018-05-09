@@ -26,14 +26,21 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 
 import {
+  faHome as faSolidHome,
+} from '@fortawesome/fontawesome-pro-solid';
+
+import {
   faExclamationCircle,
+  faSignOut as faLightSignOut,
   faSpinnerThird,
   faTimesCircle,
 } from '@fortawesome/fontawesome-pro-light';
 
 library.add(
   faExclamationCircle,
+  faLightSignOut,
   faSpinnerThird,
+  faSolidHome,
   faTimesCircle,
 );
 

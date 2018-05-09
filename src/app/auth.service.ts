@@ -113,6 +113,10 @@ export class AuthService {
   }
 
   private setAuthenticated(): void {
+    if(ENV.OAUTH.FORCE_AUTHENTICATED) {
+      return this.authenticated.next(true);
+    }
+
     if (!this.accessToken || !this.refreshToken || !this.expiresAt) {
       return this.authenticated.next(false);
     }
