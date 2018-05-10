@@ -1,39 +1,4 @@
-<div class="w-full mb-4 px-4 bg-grey-light py-3 border-grey border-solid border-b clearfix">
-  <div class="float-left">
-    <a href="" class="text-grey-darkest font-semibold no-underline mr-2 hover:text-grey-darker">
-      <fa-icon [icon]="['fas', 'home']"></fa-icon>
-      Home
-    </a>
-
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker">
-      Hosts
-    </a>
-  </div>
-
-  <div class="float-right">
-    <a
-      routerLink="/logout"
-      class="text-grey-darkest no-underline hover:text-grey-darker">
-      <fa-icon [icon]="['fal', 'sign-out']" [fixedWidth]="true"></fa-icon>
-      Logout
-    </a>
-  </div>
-</div>
-
-<div class="w-full -mt-4 px-4 bg-grey-lightest py-3 border-grey-light border-solid border-b">
-  <div>
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker">
-      Subnav 1
-    </a>
-  </div>
-
-  <div>
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker">
-      Subnav 2
-    </a>
-  </div>
-</div>
-
+<app-navbar></app-navbar>
 
 <div class="container mx-auto px-4">
   <h1 class="mb-3 text-3xl">Welcome back {{ model?.firstname }}!</h1>

@@ -35,6 +35,7 @@ import {
   faSpinnerThird,
   faTimesCircle,
 } from '@fortawesome/fontawesome-pro-light';
+import { NavbarComponent } from './navbar/navbar.component';
 
 library.add(
   faExclamationCircle,
@@ -50,6 +51,7 @@ library.add(
     HomeComponent,
     LoginComponent,
     LogoutComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
