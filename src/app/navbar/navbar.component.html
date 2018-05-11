@@ -5,7 +5,7 @@
       Home
     </a>
 
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker block py-3">
+    <a href="" (mouseenter)="mouseenter($event, 'abc')" (mouseleave)="mouseleave($event, 'abc')" class="text-grey-darkest no-underline hover:text-grey-darker block py-3">
       Hosts
     </a>
   </div>
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="w-full -mt-4 mb-4 px-4 bg-grey-lightest border-grey-light border-solid border-b flex flex-wrap">
+<div *ngIf="showSubNav" class="w-full -mt-4 mb-4 px-4 bg-grey-lightest border-grey-light border-solid border-b flex flex-wrap">
   <a href="" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
     Subnav 1 a b c d e f a b c d e f a b c d e f a b c d e
   </a>
