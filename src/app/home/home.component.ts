@@ -21,4 +21,11 @@ export class HomeComponent implements OnInit {
 
     this.title.setTitle('Home');
   }
+
+  get random() {
+    return 'xxx';
+
+    // TODO cache response as to not trigger multiple digests
+    return Math.floor(Math.random() * Math.floor(1000000));
+  }
 }

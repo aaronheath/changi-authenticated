@@ -5,8 +5,8 @@
       Home
     </a>
 
-    <a href="" (mouseenter)="mouseenter($event, 'abc')" (mouseleave)="mouseleave($event, 'abc')" class="text-grey-darkest no-underline hover:text-grey-darker block py-3">
-      Hosts
+    <a href="" *ngFor="let item of config" (mouseenter)="primaryMouseEnter(subNavKey(item))" (mouseleave)="primaryMouseLeave()" class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2">
+      {{ item.text }}
     </a>
   </div>
 
@@ -20,32 +20,8 @@
   </div>
 </div>
 
-<div *ngIf="showSubNav" class="w-full -mt-4 mb-4 px-4 bg-grey-lightest border-grey-light border-solid border-b flex flex-wrap">
-  <a href="" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
-    Subnav 1 a b c d e f a b c d e f a b c d e f a b c d e
+<div *ngIf="showSubNavOf" (mouseenter)="secondaryMouseEnter()" (mouseleave)="secondaryMouseLeave()" class="w-full -mt-4 mb-4 px-4 bg-grey-lightest border-grey-light border-solid border-b flex flex-wrap">
+  <a *ngFor="let item of subnav" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
+    {{ item.text }}
   </a>
-
-  <div>
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
-      Subnav 1 a b c d e f a b c d e f a b c d e f a b c d e
-    </a>
-  </div>
-
-  <div>
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
-      Subnav 1 a b c d e f a b c d e f a b c d e f a b c d e
-    </a>
-  </div>
-
-  <div>
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
-      Subnav 1 a b c d e f a b c d e f a b c d e f a b c d e
-    </a>
-  </div>
-
-  <div>
-    <a href="" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
-      Subnav 1 a b c d e f a b c d e f a b c d e f a b c d e
-    </a>
-  </div>
 </div>
