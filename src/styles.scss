@@ -58,27 +58,5 @@
  * @import "utilities/skew-transforms";
  */
 
-.input {
-  @apply .block .border-grey-light .border-solid .border .p-2 .text-center .rounded-sm;
-
-  &:hover,
-  &:focus {
-    @apply .border-grey;
-  }
-}
-
-.btn {
-  @apply .block .bg-grey-light .border-grey .border-solid .border .p-2 .text-center .rounded-sm;
-
-  &:hover {
-    @apply .border-grey-darker;
-  }
-
-  &-valid {
-    @apply .bg-green .text-white .border-green-dark;
-
-    &:hover {
-      @apply .bg-green-dark .border-green-darker;
-    }
-  }
-}
+@import './scss/form';
+@import './scss/navbar';

@@ -1,0 +1,35 @@
+.navbar {
+  @apply .w-full .px-4 .border-solid .border-b;
+
+  &.top {
+    @apply .mb-4 .bg-grey-light .border-grey;
+
+    .link {
+      @apply .block .py-3 px-2 .no-underline .text-grey-darkest .cursor-pointer;
+
+      &:hover {
+        @apply .text-grey-darker;
+      }
+
+      &.home {
+        @apply .mr-6 px-0 .text-grey-darkest .font-semibold;
+
+        &:hover {
+          @apply .text-grey-darker;
+        }
+      }
+    }
+  }
+
+  &.bottom {
+    @apply .-mt-4 .mb-4 .bg-grey-lightest .border-grey-light .flex .flex-wrap .absolute;
+
+    .link {
+      @apply .block .mx-2 .py-3 .text-grey-darkest .no-underline;
+
+      &:hover {
+        @apply .text-grey-darker;
+      }
+    }
+  }
+}

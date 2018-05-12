@@ -1,6 +1,7 @@
-<div class="w-full mb-4 px-4 bg-grey-light border-grey border-solid border-b clearfix">
+<!-- Primary (top) bar -->
+<div class="navbar top clearfix">
   <div class="float-left flex">
-    <a href="" class="text-grey-darkest font-semibold no-underline mr-6 hover:text-grey-darker block py-3">
+    <a href="" class="link home">
       <fa-icon [icon]="['fas', 'home']"></fa-icon>
       Home
     </a>
@@ -11,7 +12,7 @@
         [routerLink]="item.route"
         (mouseenter)="primaryMouseEnter(subNavKey(item))"
         (mouseleave)="primaryMouseLeave()"
-        class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2">
+        class="link">
         {{ item.text }}
       </a>
       <ng-template #plain_link>
@@ -20,14 +21,14 @@
           [href]="item.route"
           (mouseenter)="primaryMouseEnter(subNavKey(item))"
           (mouseleave)="primaryMouseLeave()"
-          class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2">
+          class="link">
           {{ item.text }}
         </a>
         <ng-template #no_link>
           <a
             (mouseenter)="primaryMouseEnter(subNavKey(item))"
             (mouseleave)="primaryMouseLeave()"
-            class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2 cursor-pointer">
+            class="link">
             {{ item.text }}
           </a>
         </ng-template>
@@ -38,15 +39,20 @@
   <div class="float-right flex">
     <a
       routerLink="/logout"
-      class="text-grey-darkest no-underline hover:text-grey-darker block py-3">
+      class="link">
       <fa-icon [icon]="['fal', 'sign-out']" [fixedWidth]="true"></fa-icon>
       Logout
     </a>
   </div>
 </div>
 
-<div *ngIf="showSubNavOf" (mouseenter)="secondaryMouseEnter()" (mouseleave)="secondaryMouseLeave()" class="w-full -mt-4 mb-4 px-4 bg-grey-lightest border-grey-light border-solid border-b flex flex-wrap">
-  <a [routerLink]="item.route" *ngFor="let item of subNav" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
+<!-- Secondary (bottom) bar -->
+<div
+  *ngIf="showSubNavOf"
+  (mouseenter)="secondaryMouseEnter()"
+  (mouseleave)="secondaryMouseLeave()"
+  class="navbar bottom">
+  <a [routerLink]="item.route" *ngFor="let item of subNav" class="link">
     {{ item.text }}
   </a>
 </div>
