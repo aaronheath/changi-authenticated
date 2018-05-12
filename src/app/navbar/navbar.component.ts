@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {navbar} from '../routing/routing.module';
 
 @Component({
   selector: 'app-navbar',
@@ -9,42 +10,30 @@ export class NavbarComponent implements OnInit {
   showSubNavOf: string | null;
   pointerOver: string | null;
   timeout = 300;
+  config = navbar;
 
-  config = [
-    {
-      key: 'hosts',
-      text: 'Hosts',
-      subnav: [
-        {
-          text: 'Udoo',
-          route: {},
-        },
-        {
-          text: 'XPS',
-          route: {},
-        }
-      ],
-    },
-    {
-      key: 'other',
-      text: 'Other',
-      subnav: [
-        {
-          text: 'Other Again',
-          route: {},
-        }
-      ]
-    },
-    {
-      key: 'none',
-      text: 'None',
-      route: {},
-    }
-  ];
-
-  constructor() { }
+  constructor() {
+    //
+  }
 
   ngOnInit() {
+    //
+  }
+
+  subNavKey(item) {
+    return !item.subnav || !item.subnav.length ? null : item.key;
+  }
+
+  get subNav() {
+    return this.config.find(item => item.key === this.showSubNavOf).subnav;
+  }
+
+  isRelLink(link) {
+    return link.route && Array.isArray(link.route);
+  }
+
+  isHrefLink(link) {
+    return !!link.route;
   }
 
   async primaryMouseEnter(key) {
@@ -52,7 +41,7 @@ export class NavbarComponent implements OnInit {
 
     await this.sleep();
 
-    if(this.pointerOver === key) {
+    if (this.pointerOver === key) {
       this.showSubNavOf = key;
     }
   }
@@ -62,7 +51,7 @@ export class NavbarComponent implements OnInit {
 
     await this.sleep();
 
-    if(!this.pointerOver) {
+    if (!this.pointerOver) {
       this.showSubNavOf = null;
     }
   }
@@ -76,20 +65,12 @@ export class NavbarComponent implements OnInit {
 
     await this.sleep();
 
-    if(!this.pointerOver) {
+    if (!this.pointerOver) {
       this.showSubNavOf = null;
     }
   }
 
-  async sleep() {
+  private async sleep() {
     return await new Promise(resolve => setTimeout(() => resolve(), this.timeout));
-  }
-
-  subNavKey(item) {
-    return !item.subnav || !item.subnav.length ? null : item.key;
-  }
-
-  get subnav() {
-    return this.config.find(item => item.key === this.showSubNavOf).subnav;
   }
 }

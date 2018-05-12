@@ -1,3 +1,4 @@
+import {format} from 'date-fns';
 import {Component, OnInit} from '@angular/core';
 import {Me, MeService} from '../me.service';
 import {Title} from '@angular/platform-browser';
@@ -23,9 +24,6 @@ export class HomeComponent implements OnInit {
   }
 
   get random() {
-    return 'xxx';
-
-    // TODO cache response as to not trigger multiple digests
-    return Math.floor(Math.random() * Math.floor(1000000));
+    return format(new Date, 'YYYYMMDDHHmm');
   }
 }

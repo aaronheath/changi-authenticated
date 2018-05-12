@@ -5,9 +5,34 @@
       Home
     </a>
 
-    <a href="" *ngFor="let item of config" (mouseenter)="primaryMouseEnter(subNavKey(item))" (mouseleave)="primaryMouseLeave()" class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2">
-      {{ item.text }}
-    </a>
+    <ng-container *ngFor="let item of config">
+      <a
+        *ngIf="isRelLink(item); else plain_link"
+        [routerLink]="item.route"
+        (mouseenter)="primaryMouseEnter(subNavKey(item))"
+        (mouseleave)="primaryMouseLeave()"
+        class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2">
+        {{ item.text }}
+      </a>
+      <ng-template #plain_link>
+        <a
+          *ngIf="isHrefLink(item); else no_link"
+          [href]="item.route"
+          (mouseenter)="primaryMouseEnter(subNavKey(item))"
+          (mouseleave)="primaryMouseLeave()"
+          class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2">
+          {{ item.text }}
+        </a>
+        <ng-template #no_link>
+          <a
+            (mouseenter)="primaryMouseEnter(subNavKey(item))"
+            (mouseleave)="primaryMouseLeave()"
+            class="text-grey-darkest no-underline hover:text-grey-darker block py-3 px-2 cursor-pointer">
+            {{ item.text }}
+          </a>
+        </ng-template>
+      </ng-template>
+    </ng-container>
   </div>
 
   <div class="float-right flex">
@@ -21,7 +46,7 @@
 </div>
 
 <div *ngIf="showSubNavOf" (mouseenter)="secondaryMouseEnter()" (mouseleave)="secondaryMouseLeave()" class="w-full -mt-4 mb-4 px-4 bg-grey-lightest border-grey-light border-solid border-b flex flex-wrap">
-  <a *ngFor="let item of subnav" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
+  <a [routerLink]="item.route" *ngFor="let item of subNav" class="text-grey-darkest no-underline hover:text-grey-darker mx-2 py-3 block">
     {{ item.text }}
   </a>
 </div>
