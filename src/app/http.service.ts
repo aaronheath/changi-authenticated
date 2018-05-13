@@ -1,6 +1,6 @@
-import {Subject} from 'rxjs/Subject';
-import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 import {AuthService} from './auth.service';
 
 interface HeadersObj {
@@ -72,17 +72,17 @@ export class HttpService {
   ): OptionsWithAuthorization {
     const Authorization = `Bearer ${accessToken}`;
 
-    if(!options) {
+    if (!options) {
       return {headers: {Authorization}};
     }
 
-    if(!options.headers) {
+    if (!options.headers) {
       options.headers = {Authorization};
 
       return options;
     }
 
-    if(options.headers instanceof HttpHeaders) {
+    if (options.headers instanceof HttpHeaders) {
       options.headers.set('Authorization', Authorization);
 
       return options;

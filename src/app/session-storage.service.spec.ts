@@ -1,11 +1,10 @@
-import { TestBed, inject } from '@angular/core/testing';
-
-import { SessionStorageService } from './session-storage.service';
+import {inject, TestBed} from '@angular/core/testing';
+import {SessionStorageService} from './session-storage.service';
 
 describe('SessionStorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SessionStorageService]
+      providers: [SessionStorageService],
     });
   });
 

@@ -1,14 +1,14 @@
-import {Subscription} from 'rxjs/Subscription';
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 import {AuthService, LatestAttemptMessage} from '../auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   authenticatedSub: Subscription;

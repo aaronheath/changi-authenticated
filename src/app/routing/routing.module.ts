@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from '../auth.guard';
 import {HomeComponent} from '../home/home.component';
+import {HostComponent} from '../host/host.component';
 import {LoginComponent} from '../login/login.component';
 import {LogoutComponent} from '../logout/logout.component';
-import {AuthGuard} from '../auth.guard';
-import {HostComponent} from '../host/host.component';
 
 interface NavbarSubNavInterface {
   text: string;
@@ -32,10 +32,10 @@ const routes: Routes = [
         path: 'host',
         children: [
           {path: ':name', component: HostComponent},
-        ]
-      }
+        ],
+      },
     ],
-  }
+  },
 ];
 
 export const navbar: NavbarRouteInterface[] = [
@@ -50,13 +50,13 @@ export const navbar: NavbarRouteInterface[] = [
       {
         text: 'XPS',
         route: ['/host', 'xps'],
-      }
+      },
     ],
   },
   {
     text: 'Countdown',
     route: 'http://countdown.aaronheath.io/',
-  }
+  },
 ];
 
 @NgModule({
@@ -66,7 +66,7 @@ export const navbar: NavbarRouteInterface[] = [
   ],
   exports: [
     RouterModule,
-  ]
+  ],
 })
 export class RoutingModule {
   //

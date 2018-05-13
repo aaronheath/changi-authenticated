@@ -1,9 +1,9 @@
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {addMinutes, addSeconds, isBefore, isPast} from 'date-fns';
+import {environment as ENV} from 'env';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {environment as ENV} from 'env';
 import {SessionStorageService} from './session-storage.service';
 
 interface TokenResponse {
@@ -113,7 +113,7 @@ export class AuthService {
   }
 
   private setAuthenticated(): void {
-    if(ENV.OAUTH.FORCE_AUTHENTICATED) {
+    if (ENV.OAUTH.FORCE_AUTHENTICATED) {
       return this.authenticated.next(true);
     }
 

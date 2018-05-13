@@ -4,7 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 @Component({
   selector: 'app-host',
   templateUrl: './host.component.html',
-  styleUrls: ['./host.component.scss']
+  styleUrls: ['./host.component.scss'],
 })
 export class HostComponent implements OnInit {
   hostName: string;

@@ -1,13 +1,15 @@
-import {BrowserModule, Title} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule, Title} from '@angular/platform-browser';
 
 // Components
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
+import {HostComponent} from './host/host.component';
 import {LoginComponent} from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
+import {NavbarComponent} from './navbar/navbar.component';
 
 // Services
 import {AuthService} from './auth.service';
@@ -35,15 +37,13 @@ import {
   faSpinnerThird,
   faTimesCircle,
 } from '@fortawesome/fontawesome-pro-light';
-import { NavbarComponent } from './navbar/navbar.component';
-import { HostComponent } from './host/host.component';
 
 library.add(
   faExclamationCircle,
   faLightSignOut,
   faSpinnerThird,
   faSolidHome,
-  faTimesCircle,
+  faTimesCircle
 );
 
 @NgModule({
@@ -72,7 +72,7 @@ library.add(
   ],
   bootstrap: [
     AppComponent,
-  ]
+  ],
 })
 export class AppModule {
   //

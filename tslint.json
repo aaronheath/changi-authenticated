@@ -170,7 +170,10 @@
         }
       }
     ],
-    "array-type": true,
+    "array-type": [
+      true,
+      "array"
+    ],
     "newline-before-return": true,
     "no-angle-bracket-type-assertion": true,
     "no-boolean-literal-compare": true,
@@ -186,9 +189,7 @@
     "ordered-imports": [
       true,
       {
-        "grouped-imports": true,
-        "named-imports-order": "case-insensitive",
-        "import-sources-order": "case-insensitive"
+        "named-imports-order": "case-insensitive"
       }
     ],
     "prefer-template": true

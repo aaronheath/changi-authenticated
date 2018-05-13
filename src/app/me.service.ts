@@ -1,6 +1,6 @@
-import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
 import {environment as ENV} from 'env';
+import {Subject} from 'rxjs/Subject';
 import {HttpService} from './http.service';
 
 export interface Me {
