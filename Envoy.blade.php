@@ -1,9 +1,10 @@
-@servers(['changi' => 'www-data@139.162.13.31'])
+@servers(['changi' => 'aaronheath@changi.aaronheath.io'])
 
 @task('deploy', ['on' => 'changi', 'confirm' => true])
-cd /var/www/io_aaronheath_admin
+cd /var/www/changi-authentication
 git pull origin master
 rm -rf node_modules
 npm ci
 npm build
+chgrp -R www-data *
 @endtask
