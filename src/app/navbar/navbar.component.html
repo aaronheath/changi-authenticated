@@ -1,0 +1,58 @@
+<!-- Primary (top) bar -->
+<div class="navbar top clearfix">
+  <div class="float-left flex">
+    <a href="" class="link home">
+      <fa-icon [icon]="['fas', 'home']"></fa-icon>
+      Home
+    </a>
+
+    <ng-container *ngFor="let item of config">
+      <a
+        *ngIf="isRelLink(item); else plain_link"
+        [routerLink]="item.route"
+        (mouseenter)="primaryMouseEnter(subNavKey(item))"
+        (mouseleave)="primaryMouseLeave()"
+        class="link">
+        {{ item.text }}
+      </a>
+      <ng-template #plain_link>
+        <a
+          *ngIf="isHrefLink(item); else no_link"
+          [href]="item.route"
+          (mouseenter)="primaryMouseEnter(subNavKey(item))"
+          (mouseleave)="primaryMouseLeave()"
+          class="link">
+          {{ item.text }}
+        </a>
+        <ng-template #no_link>
+          <a
+            (mouseenter)="primaryMouseEnter(subNavKey(item))"
+            (mouseleave)="primaryMouseLeave()"
+            class="link">
+            {{ item.text }}
+          </a>
+        </ng-template>
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <div class="float-right flex">
+    <a
+      routerLink="/logout"
+      class="link">
+      <fa-icon [icon]="['fal', 'sign-out']" [fixedWidth]="true"></fa-icon>
+      Logout
+    </a>
+  </div>
+</div>
+
+<!-- Secondary (bottom) bar -->
+<div
+  *ngIf="showSubNavOf"
+  (mouseenter)="secondaryMouseEnter()"
+  (mouseleave)="secondaryMouseLeave()"
+  class="navbar bottom">
+  <a [routerLink]="item.route" *ngFor="let item of subNav" class="link">
+    {{ item.text }}
+  </a>
+</div>

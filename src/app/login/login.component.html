@@ -1,0 +1,48 @@
+<div class="container mx-auto px-4">
+  <div class="flex justify-center items-center h-screen">
+    <div class="w-full">
+      <!-- In-Progress and Failure messages -->
+      <div
+        *ngIf="['in-progress', 'failed'].includes(loginAttemptMessage?.status)"
+        class="text-center m-4">
+        <span
+          *ngIf="loginAttemptMessage?.status === 'in-progress'"
+          class="text-blue">
+          <fa-icon
+            [icon]="['fal', 'spinner-third']"
+            spin="true"></fa-icon>
+          {{ loginAttemptMessage.msg }}
+        </span>
+
+        <span
+          *ngIf="loginAttemptMessage?.status === 'failed'"
+          class="text-red font-semibold">
+          <fa-icon
+            [icon]="['fal', 'exclamation-circle']"></fa-icon>
+          {{ loginAttemptMessage.msg }}
+        </span>
+      </div>
+
+      <!-- Login form -->
+      <form [formGroup]="loginForm" (ngSubmit)="submit()" class="block">
+        <input
+          type="text"
+          placeholder="Username"
+          formControlName="username"
+          class="input w-64 mx-auto my-1">
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          class="input w-64 mx-auto my-1">
+
+        <button
+          [disabled]="formInvalid"
+          [class.btn-valid]="!formInvalid"
+          class="btn w-64 mx-auto my-1">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
