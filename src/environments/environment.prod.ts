@@ -3,7 +3,7 @@ export const environment = {
   OAUTH: {
     CLIENTID: '5',
     CLIENTSECRET: '7PbaruASsUDMqUMixzwEXzk8VdDzNRcGmDW0CmzS',
-    BASE: 'https://admin.aaronheath.io',
+    BASE: 'https://api.aaronheath.com',
     PATH: '/oauth/token',
     FORCE_AUTHENTICATED: false,
   },
