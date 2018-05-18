@@ -5,6 +5,6 @@ cd /var/www/changi-authentication
 git pull origin master
 rm -rf node_modules
 npm ci
-npm build
+npm run production
 chgrp -R www-data *
 @endtask
