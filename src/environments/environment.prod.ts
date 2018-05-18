@@ -5,5 +5,6 @@ export const environment = {
     CLIENTSECRET: '',
     BASE: 'https://example.test',
     PATH: '/oauth/token',
+    FORCE_AUTHENTICATED: false,
   },
 };
