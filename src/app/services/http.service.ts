@@ -48,7 +48,7 @@ export class HttpService {
 
   private handleHttpSuccessResponse(subject: Subject<ResponseData | string>) {
     return (response: ResponseSchema) => {
-      response.status === 'success' ? subject.next(response.data) : subject.error(response.msg);
+      response.status === 'success' ? subject.next(response) : subject.error(response.msg);
     };
   }
 

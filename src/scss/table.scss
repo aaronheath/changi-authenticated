@@ -1,0 +1,45 @@
+.table {
+  border-collapse: collapse;
+  @apply .text-left;
+
+  th,
+  td {
+    @apply .text-sm .p-2;
+  }
+
+  th {
+    @apply .border-b .border-t .border-grey-light .border-solid;
+  }
+
+  td {
+    @apply .border-b .border-grey-light .border-solid;
+  }
+
+  tr {
+    &:nth-child(even) {
+      td {
+        @apply .bg-grey-lightest;
+      }
+    }
+  }
+
+  thead {
+    tr {
+      @apply .bg-grey-lighter .text-base;
+    }
+  }
+
+  tbody {
+    tr {
+      @apply .align-top;
+    }
+  }
+
+  tfoot {
+    tr {
+      td {
+        @apply .border-t .border-b .border-grey-light .border-solid .bg-grey-lighter .text-center;
+      }
+    }
+  }
+}

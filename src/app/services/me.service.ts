@@ -24,6 +24,6 @@ export class MeService {
 
   fetch(): void {
     this.http.get(`${this.base}/api/me`)
-      .subscribe(response => this.subject.next(response));
+      .subscribe(response => this.subject.next(response.data));
   }
 }

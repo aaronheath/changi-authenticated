@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {navbar} from '../routing/routing.module';
+import {navbar} from '../../routing/routing.module';
 
 @Component({
   selector: 'app-navbar',

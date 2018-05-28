@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+
+<div class="container mx-auto px-4">
+  <h1 class="mb-3 text-3xl">All Hosts</h1>
+
+  <div class="clearfix">
+    <div>
+      <table class="table w-full">
+        <thead>
+        <tr>
+          <th>Hostname</th>
+          <th>IP</th>
+          <th>Uptime</th>
+          <th>Load Average</th>
+          <th>Disk Usage</th>
+          <th>Memory Usage</th>
+          <th>When</th>
+        </tr>
+        </thead>
+        <tbody app-host-row [hosts]="latest" [fetching]="fetching">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

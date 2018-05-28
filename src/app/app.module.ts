@@ -5,20 +5,23 @@ import {BrowserModule, Title} from '@angular/platform-browser';
 
 // Components
 import {AppComponent} from './app.component';
-import {HomeComponent} from './home/home.component';
-import {HostComponent} from './host/host.component';
-import {LoginComponent} from './login/login.component';
-import {LogoutComponent} from './logout/logout.component';
-import {NavbarComponent} from './navbar/navbar.component';
+import {HomeComponent} from './components/home/home.component';
+import {HostRowComponent} from './components/host-row/host-row.component';
+import {HostComponent} from './components/host/host.component';
+import {IndividualHostComponent} from './components/individual-host/individual-host.component';
+import {LoginComponent} from './components/login/login.component';
+import {LogoutComponent} from './components/logout/logout.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
 
 // Services
-import {AuthService} from './auth.service';
-import {HttpService} from './http.service';
-import {MeService} from './me.service';
-import {SessionStorageService} from './session-storage.service';
+import {AuthService} from './services/auth.service';
+import {HostService} from './services/host.service';
+import {HttpService} from './services/http.service';
+import {MeService} from './services/me.service';
+import {SessionStorageService} from './services/session-storage.service';
 
 // Guards
-import {AuthGuard} from './auth.guard';
+import {AuthGuard} from './guards/auth.guard';
 
 // Routes
 import {RoutingModule} from './routing/routing.module';
@@ -50,10 +53,12 @@ library.add(
   declarations: [
     AppComponent,
     HomeComponent,
+    IndividualHostComponent,
     LoginComponent,
     LogoutComponent,
     NavbarComponent,
     HostComponent,
+    HostRowComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +70,7 @@ library.add(
   providers: [
     AuthService,
     HttpService,
+    HostService,
     MeService,
     SessionStorageService,
     AuthGuard,

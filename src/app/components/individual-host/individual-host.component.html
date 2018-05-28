@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<div class="container mx-auto px-4">
+  <h1 class="mb-3 text-3xl">{{ hostname }}</h1>
+
+  <div class="clearfix">
+    <div class="mb-2">
+      <table class="table w-full">
+        <thead>
+        <tr>
+          <th>IP</th>
+          <th>Uptime</th>
+          <th>Load Average</th>
+          <th>Disk Usage</th>
+          <th>Memory Usage</th>
+          <th>When</th>
+        </tr>
+        </thead>
+        <tbody app-host-row [hosts]="heartbeats" [showHostColumn]="false" [fetching]="fetching"><tbody>
+        <tfoot *ngIf="paginationSet">
+        <tr>
+          <td colspan="6">
+            Current Page {{ currentPage }} of {{ totalPages }}
+
+            <span *ngIf="hasPrevious && !fetching">
+              - <a (click)="fetchPreviousPage()">Previous</a>
+            </span>
+
+            <span *ngIf="hasNext && !fetching">
+              - <a (click)="fetchNextPage()">Next</a>
+            </span>
+
+            <span *ngIf="fetching" class="text-grey-darker">- Fetching...</span>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p class="text-sm">
+      <a [routerLink]="['/host']">All Hosts</a>
+    </p>
+  </div>
+</div>

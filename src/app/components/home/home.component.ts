@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {format} from 'date-fns';
-import {Me, MeService} from '../me.service';
+import {Me, MeService} from '../../services/me.service';
 
 @Component({
   selector: 'app-home',
