@@ -1,0 +1,36 @@
+<tr *ngFor="let item of hosts" class="align-top">
+  <td *ngIf="showHostColumn">
+    <a [routerLink]="['/host', item.hostname]">{{ item.hostname }}</a>
+  </td>
+  <td>
+    {{ item.ip }}
+  </td>
+  <td [class]="statusCss(item.uptimeStatus  )">
+    {{ item.uptime }}
+  </td>
+  <td>
+    <span [class]="statusCss(item.loadAverage1MinStatus)">{{ item.loadAverage1Min }}</span>
+    /
+    <span [class]="statusCss(item.loadAverage5MinStatus)">{{ item.loadAverage5Min }}</span>
+    /
+    <span [class]="statusCss(item.loadAverage15MinStatus)">{{ item.loadAverage15Min }}</span>
+  </td>
+  <td>
+    {{ item.diskFree }} / {{ item.diskTotal }}<br>
+    <span [class]="statusCss(item.diskPercentUsedStatus)">{{ item.diskPercentUsed }}%</span>
+  </td>
+  <td>
+    {{ item.memoryFree }} / {{ item.memoryTotal }}<br>
+    <span [class]="statusCss(item.memoryPercentUsedStatus)">{{ item.memoryPercentUsed }}%</span>
+  </td>
+  <td>
+    {{ item.whenFormatted }}<br>
+    <span [class]="statusCss(item.timeAgoStatus)">{{ item.timeAgo }}</span>
+  </td>
+</tr>
+<tr *ngIf="showNothingToDisplay">
+  <td [attr.colspan]="showHostColumn ? 7 : 6">No hosts to display</td>
+</tr>
+<tr *ngIf="showFetching">
+  <td [attr.colspan]="showHostColumn ? 7 : 6">Fetching...</td>
+</tr>

@@ -1,11 +1,12 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from '../auth.guard';
-import {HomeComponent} from '../home/home.component';
-import {HostComponent} from '../host/host.component';
-import {LoginComponent} from '../login/login.component';
-import {LogoutComponent} from '../logout/logout.component';
+import {HomeComponent} from '../components/home/home.component';
+import {HostComponent} from '../components/host/host.component';
+import {IndividualHostComponent} from '../components/individual-host/individual-host.component';
+import {LoginComponent} from '../components/login/login.component';
+import {LogoutComponent} from '../components/logout/logout.component';
+import {AuthGuard} from '../guards/auth.guard';
 
 interface NavbarSubNavInterface {
   text: string;
@@ -31,7 +32,8 @@ const routes: Routes = [
       {
         path: 'host',
         children: [
-          {path: ':name', component: HostComponent},
+          {path: '', component: HostComponent},
+          {path: ':name', component: IndividualHostComponent},
         ],
       },
     ],
@@ -43,6 +45,10 @@ export const navbar: NavbarRouteInterface[] = [
     key: 'hosts',
     text: 'Hosts',
     subnav: [
+      {
+        text: 'All',
+        route: ['/host'],
+      },
       {
         text: 'Udoo',
         route: ['/host', 'udoo'],
