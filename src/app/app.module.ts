@@ -5,9 +5,12 @@ import {BrowserModule, Title} from '@angular/platform-browser';
 
 // Components
 import {AppComponent} from './app.component';
+import {GlacierRowComponent} from './components/glacier-row/glacier-row.component';
+import {GlacierComponent} from './components/glacier/glacier.component';
 import {HomeComponent} from './components/home/home.component';
 import {HostRowComponent} from './components/host-row/host-row.component';
 import {HostComponent} from './components/host/host.component';
+import {IndividualGlacierVaultComponent} from './components/individual-glacier-vault/individual-glacier-vault.component';
 import {IndividualHostComponent} from './components/individual-host/individual-host.component';
 import {LoginComponent} from './components/login/login.component';
 import {LogoutComponent} from './components/logout/logout.component';
@@ -15,6 +18,7 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 
 // Services
 import {AuthService} from './services/auth.service';
+import {GlacierService} from './services/glacier.service';
 import {HostService} from './services/host.service';
 import {HttpService} from './services/http.service';
 import {MeService} from './services/me.service';
@@ -59,6 +63,9 @@ library.add(
     NavbarComponent,
     HostComponent,
     HostRowComponent,
+    GlacierComponent,
+    GlacierRowComponent,
+    IndividualGlacierVaultComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +76,7 @@ library.add(
   ],
   providers: [
     AuthService,
+    GlacierService,
     HttpService,
     HostService,
     MeService,

@@ -42,21 +42,31 @@ export class HttpService {
     this.http.get(url, options)
       .subscribe(
         this.handleHttpSuccessResponse(subject),
-        error => console.error(error)
+        error => console.error('HTTP GET ERROR', error)
       );
   }
 
   private handleHttpSuccessResponse(subject: Subject<ResponseData | string>) {
     return (response: ResponseSchema) => {
-      response.status === 'success' ? subject.next(response) : subject.error(response.msg);
+      if (response instanceof Blob) {
+        window.location.href = window.URL.createObjectURL(response);
+
+        // TODO improve support to read headers and to use correct filename into download.
+        // https://stackoverflow.com/questions/45505619/angular-4-3-3-httpclient-how-get-value-from-the-header-of-a-response
+        // saveData(response, 'testing.txt');
+      } else {
+        response.status === 'success' ? subject.next(response) : subject.error(response.msg);
+      }
     };
   }
 
   private callWithAccessToken(method, subject, url, options) {
-    this.auth.accessTokenSubject.subscribe(accessToken => {
+    const sub = this.auth.accessTokenSubject.subscribe(accessToken => {
       options = this.injectAuthorization(accessToken, options);
 
       this[method](subject, url, options);
+
+      sub.unsubscribe();
     });
 
     this.auth.pushAccessToken();
