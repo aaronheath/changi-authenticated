@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+
+<div class="container mx-auto px-4">
+  <h1 class="mb-3 text-3xl">Glacier Archives</h1>
+
+  <div class="clearfix">
+    <div>
+      <table class="table w-full">
+        <thead>
+        <tr>
+          <th>Vault</th>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Archive Id</th>
+          <th>Checksum</th>
+          <th>Status</th>
+          <th>Uploaded At</th>
+          <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody app-glacier-row [archives]="latest" [fetching]="fetching">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

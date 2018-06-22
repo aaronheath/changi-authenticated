@@ -5,6 +5,6 @@ export const environment = {
     CLIENTSECRET: 'QkL4JIjf2rakzIYUqnUpYMdXY6VG198tlnadvb01',
     BASE: 'https://api.ahdc.test',
     PATH: '/oauth/token',
-    FORCE_AUTHENTICATED: true,
+    FORCE_AUTHENTICATED: false,
   },
 };

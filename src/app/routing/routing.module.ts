@@ -1,8 +1,10 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {GlacierComponent} from '../components/glacier/glacier.component';
 import {HomeComponent} from '../components/home/home.component';
 import {HostComponent} from '../components/host/host.component';
+import {IndividualGlacierVaultComponent} from '../components/individual-glacier-vault/individual-glacier-vault.component';
 import {IndividualHostComponent} from '../components/individual-host/individual-host.component';
 import {LoginComponent} from '../components/login/login.component';
 import {LogoutComponent} from '../components/logout/logout.component';
@@ -36,6 +38,13 @@ const routes: Routes = [
           {path: ':name', component: IndividualHostComponent},
         ],
       },
+      {
+        path: 'glacier',
+        children: [
+          {path: '', component: GlacierComponent},
+          {path: ':name', component: IndividualGlacierVaultComponent},
+        ],
+      },
     ],
   },
 ];
@@ -58,6 +67,10 @@ export const navbar: NavbarRouteInterface[] = [
         route: ['/host', 'xps'],
       },
     ],
+  },
+  {
+    text: 'Glacier',
+    route: ['/glacier'],
   },
   {
     text: 'Countdown',

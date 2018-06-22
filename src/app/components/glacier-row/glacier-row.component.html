@@ -1,0 +1,46 @@
+<tr *ngFor="let item of archives" class="align-top">
+  <td *ngIf="showVaultColumn">
+    <a [routerLink]="['/glacier', item.vault]">{{ item.vault }}</a>
+  </td>
+  <td>
+    <span [attr.title]="item.description">{{ item.filename }}</span>
+  </td>
+  <td>
+    {{ item.filesize }}
+  </td>
+  <td>
+    <span [attr.title]="item.archiveId">{{ item.shortArchiveId }}</span>
+    <a (click)="copy(item.archiveId)">
+      <fa-icon [icon]="['fal', 'copy']"></fa-icon>
+    </a>
+  </td>
+  <td>
+    <span [attr.title]="item.checksum">{{ item.shortChecksum }}</span>
+    <a (click)="copy(item.checksum)">
+      <fa-icon [icon]="['fal', 'copy']"></fa-icon>
+    </a>
+  </td>
+  <td [class]="statusCss(item.readableStatus?.css)">
+    {{ item.readableStatus?.text }}
+  </td>
+  <td>
+    {{ item.whenFormatted }}
+  </td>
+  <td>
+    <a class="hover:no-underline" (click)="fetchFromGlacier(item)">
+      <fa-icon
+        [icon]="['fal', 'cloud-download']" [fixedWidth]="true"></fa-icon>
+    </a>
+
+    <a class="pl-1 hover:no-underline" *ngIf="item.canDownload" (click)="download(item)">
+      <fa-icon
+        [icon]="['fal', 'arrow-circle-down']" [fixedWidth]="true"></fa-icon>
+    </a>
+  </td>
+</tr>
+<tr *ngIf="showNothingToDisplay">
+  <td [attr.colspan]="showVaultColumn ? 8 : 7">No vaults to display</td>
+</tr>
+<tr *ngIf="showFetching">
+  <td [attr.colspan]="showVaultColumn ? 8 : 7">Fetching...</td>
+</tr>
