@@ -4,9 +4,10 @@ import {differenceInSeconds, distanceInWordsToNow, format, parse} from 'date-fns
 export class GlacierArchiveWrapper {
   private data;
   private statusMap = {
+    'uploaded': {text: 'Uploaded to AWS', css: 'info'},
     'requesting': {text: 'Request Sent To Host', css: 'info'},
     'fetch-requested': {text: 'Request Sent To AWS', css: 'info'},
-    'fetch-inprogress': {text: 'AWS Fetching', css: 'info'},
+    'fetch-in-progress': {text: 'AWS Fetching', css: 'info'},
     'fetched': {text: 'Ready For Download', css: 'success'},
     'fetch-failed': {text: 'Failed', css: 'fail'},
   };
