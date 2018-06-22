@@ -28,7 +28,7 @@ export class GlacierRowComponent implements OnInit {
       success: 'text-green',
     };
 
-    return map[status];
+    return map[status] ? map[status] : '';
   }
 
   get showFetching(): boolean {

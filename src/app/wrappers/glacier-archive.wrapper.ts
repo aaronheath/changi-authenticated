@@ -90,7 +90,9 @@ export class GlacierArchiveWrapper {
   }
 
   get readableStatus() {
-    return this.statusMap[this.status];
+    const status = this.statusMap[this.status];
+
+    return status ? status : {};
   }
 
   get canDownload() {
